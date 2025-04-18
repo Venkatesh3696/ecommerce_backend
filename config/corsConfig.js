@@ -1,8 +1,20 @@
+const whitelist = [
+	'http://localhost:5173',
+	'http://localhost:3000',
+	'https://myonlinestoreapp.netlify.app',
+];
+
 export const corsConfig = {
-	origin: [
-		'http://localhost:5173',
-		'https://e-commerce-frontend-c9fi.onrender.com/',
-	],
+	origin: function (origin, callback) {
+		if (!origin) {
+			return callback(null, true);
+		} else if (whitelist.indexOf(origin) !== -1) {
+			callback(null, true);
+		} else {
+			callback(new Error('Not allowed by CORS'));
+		}
+	},
+
 	methods: ['GET', 'POST', 'PUT', 'DELETE'],
 	allowedHeaders: [
 		'Content-Type',
