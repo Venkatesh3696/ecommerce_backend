@@ -32,7 +32,7 @@ app.use("/api/shopping/products", shopProductsRouter);
 app.use("/api/shopping/cart", checkUser, cartRouter);
 
 app.get("/", (req, res) => {
-  res.send("Hello World!", req.ip);
+  res.status(200).send("Hello World!", req.ip);
 });
 
 const PORT = process.env.PORT || 5000;
