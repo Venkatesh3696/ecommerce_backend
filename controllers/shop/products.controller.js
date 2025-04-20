@@ -10,8 +10,6 @@ export const getFilteredProducts = async (req, res) => {
 
     let filters = {};
 
-    console.log(category, brand);
-
     if (category.length) {
       filters.category = { $in: category.split(",") };
     }
@@ -39,10 +37,8 @@ export const getFilteredProducts = async (req, res) => {
         break;
     }
 
-    console.log(filters, sort);
-
     const products = await Product.find(filters).sort(sort);
-    console.log(products.length);
+
     res.status(200).json({
       success: true,
       data: products,

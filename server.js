@@ -7,11 +7,12 @@ import { connectDb } from "./config/connectDb.js";
 import { corsConfig } from "./config/corsConfig.js";
 
 // routes
-import { checkUser } from "./middlewares/auth.middleware.js";
+import { checkUser, userRoles } from "./middlewares/auth.middleware.js";
 import authRouter from "./routes/auth/auth.route.js";
 import adminProductsRouter from "./routes/admin/products.routes.js";
 import shopProductsRouter from "./routes/shop/products.route.js";
 import cartRouter from "./routes/shop/cart.route.js";
+import shoppingAddressRouter from "./routes/shop/address.route.js";
 
 configDotenv();
 
@@ -30,6 +31,7 @@ app.use("/api/admin/products", adminProductsRouter);
 
 app.use("/api/shopping/products", shopProductsRouter);
 app.use("/api/shopping/cart", checkUser, cartRouter);
+app.use("/api/shopping/address", checkUser, shoppingAddressRouter);
 
 app.get("/", (req, res) => {
   res.status(200).send("Hello World!");
