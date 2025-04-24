@@ -13,6 +13,10 @@ import adminProductsRouter from "./routes/admin/products.routes.js";
 import shopProductsRouter from "./routes/shop/products.route.js";
 import cartRouter from "./routes/shop/cart.route.js";
 import shoppingAddressRouter from "./routes/shop/address.route.js";
+import shoppingOrdersRouter from "./routes/shop/orders.route.js";
+
+// payment
+import paymentsRouter from "./routes/payments/razorpay.route.js";
 
 configDotenv();
 
@@ -32,6 +36,9 @@ app.use("/api/admin/products", adminProductsRouter);
 app.use("/api/shopping/products", shopProductsRouter);
 app.use("/api/shopping/cart", checkUser, cartRouter);
 app.use("/api/shopping/address", checkUser, shoppingAddressRouter);
+app.use("/api/shopping/orders", checkUser, shoppingOrdersRouter);
+
+app.use("/api/payments", checkUser, paymentsRouter);
 
 app.get("/", (req, res) => {
   res.status(200).send("Hello World!");
