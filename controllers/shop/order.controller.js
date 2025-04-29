@@ -27,8 +27,6 @@ export const createNewOrder = async (req, res) => {
       });
     }
 
-    console.log("before order collection creation", orderPrice);
-
     const newOrder = await Order.create({
       userId,
       cartItems,
@@ -44,11 +42,11 @@ export const createNewOrder = async (req, res) => {
       order: newOrder,
     });
   } catch (error) {
-    // if (error.name === "ValidationError") {
-    //   return res
-    //     .status(400)
-    //     .json({ message: error.message, errors: error.errors });
-    // }
+    if (error.name === "ValidationError") {
+      return res
+        .status(400)
+        .json({ message: error.message, errors: error.errors });
+    }
     console.log("error in controller catch", error),
       res.status(500).json({
         success: false,
@@ -85,7 +83,7 @@ export const getOrderDetails = async (req, res) => {
     if (!orders) {
       return res
         .status(404)
-        .json({ success: false, message: "Order not found" });
+        .json({ success: false, message: "Order not found with id " });
     }
     res.status(200).json({
       success: true,
@@ -93,11 +91,11 @@ export const getOrderDetails = async (req, res) => {
       orders,
     });
   } catch (error) {
-    console.log(error),
-      res.status(500).json({
-        success: false,
-        message: "some error occurred while fetching orders",
-      });
+    res.status(500).json({
+      success: false,
+      message: "some error occurred while fetching orders",
+      error,
+    });
   }
 };
 

@@ -17,7 +17,7 @@ const OrderSchema = new Schema(
       addressId: String,
       address: String,
       city: String,
-      pinCode: String,
+      pincode: String,
       phone: String,
       notes: String,
     },
